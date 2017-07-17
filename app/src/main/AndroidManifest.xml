@@ -36,6 +36,7 @@
         </activity>
 
         <activity android:name=".ShareReadMaActivity"
+            android:theme="@android:style/Theme.NoDisplay"
             android:label="ReadMa">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
