@@ -27,6 +27,7 @@ public class Article implements Parcelable {
     public String content;
     @SerializedName("admin_user")
     public String adminUserId;
+    public String image;
 
     @Override
     public int describeContents() {
@@ -43,6 +44,8 @@ public class Article implements Parcelable {
         dest.writeString(this.createdAt);
         dest.writeString(this.difficulty);
         dest.writeString(this.content);
+        dest.writeString(this.adminUserId);
+        dest.writeString(this.image);
     }
 
     public Article() {
@@ -57,6 +60,8 @@ public class Article implements Parcelable {
         this.createdAt = in.readString();
         this.difficulty = in.readString();
         this.content = in.readString();
+        this.adminUserId = in.readString();
+        this.image = in.readString();
     }
 
     public static final Parcelable.Creator<Article> CREATOR = new Parcelable.Creator<Article>() {

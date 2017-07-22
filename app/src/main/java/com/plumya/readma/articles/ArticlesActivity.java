@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.plumya.readma.R;
+import com.plumya.readma.articledetail.ArticleDetailActivity;
 import com.plumya.readma.data.model.Article;
 import com.plumya.readma.data.source.ServiceFactory;
 import com.plumya.readma.data.source.local.PreferenceHelper;
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
  */
 
 public class ArticlesActivity extends AppCompatActivity
-        implements ArticlesContract.View, ArticlesAdapter.ClickListener {
+        implements ArticlesContract.View, ArticlesAdapter.OnClickListener {
 
     private View mProgressView;
 
@@ -56,8 +57,8 @@ public class ArticlesActivity extends AppCompatActivity
         mRecyclerView.addItemDecoration(itemDecoration);
         mRecyclerView.setNestedScrollingEnabled(false);
 
-        mArticlesAdapter = new ArticlesAdapter(mArticles);
-        mArticlesAdapter.setClickListener(this);
+        mArticlesAdapter = new ArticlesAdapter(this, mArticles);
+        mArticlesAdapter.setOnClickListener(this);
         mRecyclerView.setAdapter(mArticlesAdapter);
 
         ArticlesService articlesService = ServiceFactory.createService(ArticlesService.class);
@@ -113,12 +114,19 @@ public class ArticlesActivity extends AppCompatActivity
     }
 
     @Override
-    public void showArticleScreen() {
+    public void showArticleDetailsScreen(long articleId) {
+        Intent intent = new Intent(this, ArticleDetailActivity.class);
+        intent.putExtra(ArticleDetailActivity.ARTICLE_ID, articleId);
+        startActivity(intent);
+    }
+
+    @Override
+    public void showArticlesScreen() {
         mArticlesPresenter.loadArticles();
     }
 
     @Override
     public void onArticleClick(Article article) {
-
+        mArticlesPresenter.openArticleDetails(article);
     }
 }

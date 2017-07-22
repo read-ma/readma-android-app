@@ -17,10 +17,12 @@ public interface ArticlesContract {
         void showArticles(List<Article> articles);
         void showArticlesEmpty();
         void showLoginScreen();
-        void showArticleScreen();
+        void showArticlesScreen();
+        void showArticleDetailsScreen(long articleId);
     }
     interface Presenter extends BasePresenter {
         void loadArticles();
         void dispatchFlow();
+        void openArticleDetails(Article article);
     }
 }

@@ -56,11 +56,16 @@ public class ArticlesPresenter implements ArticlesContract.Presenter {
     @Override
     public void dispatchFlow() {
         Optional<String> authKey = mArticlesRepository.getPreferenceHelper().getAuthToken();
-        if (!authKey.isPresent()) {
-            mArticlesView.showLoginScreen();
+        if (authKey.isPresent()) {
+            mArticlesView.showArticlesScreen();
         } else {
-            mArticlesView.showArticleScreen();
+            mArticlesView.showLoginScreen();
         }
+    }
+
+    @Override
+    public void openArticleDetails(Article article) {
+        mArticlesView.showArticleDetailsScreen(article.id);
     }
 
     @Override
