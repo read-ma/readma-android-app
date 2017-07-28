@@ -73,7 +73,9 @@ public class ArticlesActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mArticlesPresenter.detachView();
+        if (mArticlesPresenter != null) {
+            mArticlesPresenter.detachView();
+        }
     }
 
     @Override

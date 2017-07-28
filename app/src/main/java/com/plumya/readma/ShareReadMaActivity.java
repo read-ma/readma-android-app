@@ -7,7 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.plumya.readma.data.model.Article;
-import com.plumya.readma.data.model.ArticleWrapper;
+import com.plumya.readma.data.model.ArticleDetailWrapper;
 import com.plumya.readma.data.source.ServiceFactory;
 import com.plumya.readma.data.source.local.PreferenceHelper;
 import com.plumya.readma.data.source.remote.ArticlesService;
@@ -50,7 +50,7 @@ public class ShareReadMaActivity extends Activity {
         mSubscription = mSharedRepository.saveArticle(article)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
-                .subscribe(new Observer<ArticleWrapper>() {
+                .subscribe(new Observer<ArticleDetailWrapper>() {
                     @Override
                     public void onCompleted() {
                         Toast.makeText(getApplicationContext(),
@@ -65,7 +65,7 @@ public class ShareReadMaActivity extends Activity {
                     }
 
                     @Override
-                    public void onNext(ArticleWrapper articleWrapper) {
+                    public void onNext(ArticleDetailWrapper articleWrapper) {
                         // no action
                     }
                 });

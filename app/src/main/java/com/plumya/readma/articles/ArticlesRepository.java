@@ -2,6 +2,8 @@ package com.plumya.readma.articles;
 
 import android.support.annotation.NonNull;
 
+import com.google.common.base.Optional;
+import com.plumya.readma.data.model.ArticleDetailWrapper;
 import com.plumya.readma.data.model.ArticlesWrapper;
 import com.plumya.readma.data.source.local.PreferenceHelper;
 import com.plumya.readma.data.source.remote.ArticlesService;
@@ -28,6 +30,14 @@ public class ArticlesRepository {
 
     public Observable<ArticlesWrapper> getArticles(String authKey) {
         return mArticlesService.getArticles(authKey);
+    }
+
+    public Observable<ArticleDetailWrapper> getArticle(long articleId, String authKey) {
+        return mArticlesService.getArticle(articleId, authKey);
+    }
+
+    public Optional<String> getAuthKey() {
+        return getPreferenceHelper().getAuthToken();
     }
 
     public PreferenceHelper getPreferenceHelper() {
