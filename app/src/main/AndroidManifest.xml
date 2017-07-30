@@ -35,7 +35,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ShareReadMaActivity"
+        <activity
+            android:name=".articledetail.ArticleDetailActivity"
+            android:label="@string/title_activity_article_detail" >
+        </activity>
+
+        <activity android:name=".share.ShareReadMaActivity"
             android:theme="@android:style/Theme.NoDisplay"
             android:label="ReadMa">
             <intent-filter>
@@ -44,6 +49,21 @@
                 <data android:mimeType="text/*"/>
             </intent-filter>
         </activity>
+
+        <receiver android:name=".share.SaveArticleBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="com.plumya.readma.SAVE_ARTICLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".service.SaveArticleService"
+            android:exported="false"/>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="6676bca4827f8fa22ffdb91f603c59d4389ea6ba" />
     </application>
 
 </manifest>

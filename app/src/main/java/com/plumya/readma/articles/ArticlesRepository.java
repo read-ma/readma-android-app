@@ -18,9 +18,7 @@ public class ArticlesRepository {
 
     @NonNull
     private ArticlesService mArticlesService;
-
     private PreferenceHelper mPreferenceHelper;
-
 
     public ArticlesRepository(@NonNull ArticlesService articlesService,
                             @NonNull PreferenceHelper preferenceHelper) {

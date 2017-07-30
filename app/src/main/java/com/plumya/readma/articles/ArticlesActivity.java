@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.crashlytics.android.Crashlytics;
 import com.plumya.readma.R;
 import com.plumya.readma.articledetail.ArticleDetailActivity;
 import com.plumya.readma.data.model.Article;
@@ -24,6 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by miltomasz on 15/07/17.
@@ -46,6 +48,7 @@ public class ArticlesActivity extends AppCompatActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_articles);
         ButterKnife.bind(this);
 

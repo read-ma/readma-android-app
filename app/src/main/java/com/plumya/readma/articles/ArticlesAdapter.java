@@ -107,6 +107,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Articl
         public ArticleViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
         }
 
         public void setArticle(Article article) {
@@ -119,14 +120,6 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Articl
             Article article = mArticles.get(position);
             mClickListener.onArticleClick(article);
         }
-
-
-//        @OnClick(R.id.article_title_tv)
-//        public void onTitleClick() {
-//            if (mClickListener != null) {
-//                mClickListener.onArticleClick(mArticle);
-//            }
-//        }
     }
 
     interface OnClickListener {

@@ -2,7 +2,9 @@ package com.plumya.readma.data.source.remote;
 
 import com.plumya.readma.data.model.ArticleDetailWrapper;
 import com.plumya.readma.data.model.ArticlesWrapper;
+import com.plumya.readma.data.model.SaveArticleWrapper;
 
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -16,6 +18,7 @@ import rx.Observable;
  */
 
 public interface ArticlesService {
+
     @Headers("Accept:application/json")
     @GET("/api/articles")
     Observable<ArticlesWrapper> getArticles(@Query("auth_token") String authToken);
@@ -27,6 +30,6 @@ public interface ArticlesService {
 
     @Headers("Accept:application/json")
     @POST("/api/articles")
-    Observable<ArticleDetailWrapper> saveArticle(@Body ArticleDetailWrapper articleWrapper,
-                                                 @Query("auth_token") String authenticationToken);
+    Call<SaveArticleWrapper> saveArticle(@Body SaveArticleWrapper articleWrapper,
+                                         @Query("auth_token") String authenticationToken);
 }
