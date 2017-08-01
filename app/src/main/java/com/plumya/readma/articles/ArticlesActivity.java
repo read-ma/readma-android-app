@@ -3,6 +3,7 @@ package com.plumya.readma.articles;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -42,6 +43,8 @@ public class ArticlesActivity extends AppCompatActivity
     RecyclerView mRecyclerView;
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     private List<Article> mArticles = new ArrayList<>();
     private ArticlesAdapter mArticlesAdapter;
@@ -65,6 +68,7 @@ public class ArticlesActivity extends AppCompatActivity
         mArticlesAdapter = new ArticlesAdapter(this, mArticles);
         mArticlesAdapter.setOnClickListener(this);
         mRecyclerView.setAdapter(mArticlesAdapter);
+        mRecyclerView.addOnScrollListener(mScrollListener);
 
         ArticlesService articlesService = ServiceFactory.createService(ArticlesService.class);
         mArticlesPresenter = new ArticlesPresenter(
@@ -73,6 +77,13 @@ public class ArticlesActivity extends AppCompatActivity
         );
         mArticlesPresenter.attachView(this);
         mArticlesPresenter.dispatchFlow();
+
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mArticlesPresenter.loadArticles();
+            }
+        });
     }
 
     @Override
@@ -104,6 +115,7 @@ public class ArticlesActivity extends AppCompatActivity
         mArticlesAdapter.setArticles(articles);
         mArticlesAdapter.notifyDataSetChanged();
         mRecyclerView.setVisibility(View.VISIBLE);
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -138,4 +150,15 @@ public class ArticlesActivity extends AppCompatActivity
     public void onArticleClick(Article article) {
         mArticlesPresenter.openArticleDetails(article);
     }
+
+    private RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            LinearLayoutManager manager = ((LinearLayoutManager) recyclerView.getLayoutManager());
+            boolean enabled =manager.findFirstCompletelyVisibleItemPosition() == 0;
+            if (mSwipeRefreshLayout != null) {
+                mSwipeRefreshLayout.setEnabled(enabled);
+            }
+        }
+    };
 }
