@@ -87,11 +87,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Articl
         return mArticles.size();
     }
 
-    public void addItems(List<Article> articles) {
-        synchronized (mArticles) {
-            mArticles.addAll(articles);
-        }
-        notifyDataSetChanged();
+    public void setArticles(List<Article> articles) {
+        mArticles = articles;
     }
 
     public class ArticleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -102,7 +99,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.Articl
         @BindView(R.id.progress_bar)
         ProgressBar progressBar;
 
-        Article mArticle;
+        private Article mArticle;
 
         public ArticleViewHolder(View itemView) {
             super(itemView);

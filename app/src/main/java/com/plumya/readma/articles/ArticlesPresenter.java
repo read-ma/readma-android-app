@@ -70,6 +70,7 @@ public class ArticlesPresenter implements ArticlesContract.Presenter {
 
     @Override
     public void loadArticles() {
+        mArticlesView.setLoadingIndicator(true);
         Optional<String> authKey = mArticlesRepository.getPreferenceHelper().getAuthToken();
         mSubscription = mArticlesRepository.getArticles(authKey.get())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -78,6 +79,7 @@ public class ArticlesPresenter implements ArticlesContract.Presenter {
                     @Override
                     public void onCompleted() {
                         Log.d(TAG, "Articles request completed.");
+                        mArticlesView.setLoadingIndicator(false);
                     }
 
                     @Override
@@ -96,7 +98,8 @@ public class ArticlesPresenter implements ArticlesContract.Presenter {
                                             return article.adminUserId != null;
                                         }
                                     })
-                                    .toList().subscribe(new Action1<List<Article>>() {
+                                    .toList()
+                                    .subscribe(new Action1<List<Article>>() {
                                         @Override
                                         public void call(List<Article> articles) {
                                             mArticlesView.showArticles(articleWrapper.articles);

@@ -9,6 +9,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.crashlytics.android.Crashlytics;
 import com.plumya.readma.R;
@@ -34,13 +35,14 @@ import io.fabric.sdk.android.Fabric;
 public class ArticlesActivity extends AppCompatActivity
         implements ArticlesContract.View, ArticlesAdapter.OnClickListener {
 
-    private View mProgressView;
-
-    public static final String SELECTED_ARTICLE = "selectedArticle";
     private static final String TAG = ArticlesActivity.class.getSimpleName();
+    public static final String SELECTED_ARTICLE = "selectedArticle";
 
     @BindView(R.id.articles_recycler_view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgressBar;
+
     private List<Article> mArticles = new ArrayList<>();
     private ArticlesAdapter mArticlesAdapter;
     private ArticlesContract.Presenter mArticlesPresenter;
@@ -94,21 +96,23 @@ public class ArticlesActivity extends AppCompatActivity
 
     @Override
     public void setLoadingIndicator(boolean show) {
-        mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-    }
-
-    @Override
-    public void showError(String msg) {
-
+        mProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
     public void showArticles(List<Article> articles) {
-        mArticlesAdapter.addItems(articles);
+        mArticlesAdapter.setArticles(articles);
+        mArticlesAdapter.notifyDataSetChanged();
+        mRecyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showArticlesEmpty() {
+
+    }
+
+    @Override
+    public void showError(String msg) {
 
     }
 

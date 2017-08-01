@@ -22,11 +22,11 @@ import retrofit2.Response;
 
 public class SaveArticleService extends IntentService {
 
+    private static final String TAG = SaveArticleService.class.getSimpleName();
+
     public static final String ARTICLE = "article";
     public static final String RESULT = "result";
-
-    private static final String TAG = SaveArticleService.class.getSimpleName();
-    private static final String AUTH_KEY = "authKey";
+    public static final String AUTH_KEY = "authKey";
 
     public SaveArticleService() {
         super("SaveArticleService");
