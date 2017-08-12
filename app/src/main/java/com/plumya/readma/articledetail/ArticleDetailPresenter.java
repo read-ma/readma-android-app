@@ -43,7 +43,7 @@ public class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
     }
 
     @Override
-    public void loadArticle(long articleId) {
+    public void loadArticle(long articleId, String image) {
         Optional<String> authKey = mArticlesRepository.getAuthKey();
         if (!authKey.isPresent() || articleId == -1) {
             mArticleDetailView.showLoadingIndicator(false);
@@ -51,13 +51,14 @@ public class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
             return;
         }
         mArticleDetailView.showLoadingIndicator(true);
+        mArticleDetailView.showArticleImage(image);
         mSubscriptions.add(
                 mArticlesRepository.getArticle(articleId, authKey.get())
                         .subscribeOn(mSchedulerProvider.computation())
                         .observeOn(mSchedulerProvider.ui())
                         .subscribe(
                                 // onNext
-                                this::showArticle,
+                                this::displayArticle,
                                 // onError
                                 throwable -> {},
                                 // onCompleted
@@ -66,7 +67,7 @@ public class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
         );
     }
 
-    private void showArticle(ArticleDetailWrapper articleDetailWrapper) {
+    private void displayArticle(ArticleDetailWrapper articleDetailWrapper) {
         Log.d(TAG, "Preparing article to show");
         String[][] titleArray = articleDetailWrapper.article.title;
         StringBuilder titleBuilder = new StringBuilder();
@@ -75,6 +76,8 @@ public class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
         }
         String title = titleBuilder.toString();
         String content = articleDetailWrapper.article.content;
-        mArticleDetailView.showArticle(title, content);
+
+        mArticleDetailView.showTitle(title);
+        mArticleDetailView.showContent(content);
     }
 }

@@ -9,12 +9,14 @@ import com.plumya.readma.BaseView;
 
 public class ArticleDetailContract {
     interface View extends BaseView {
-        void showArticle(String title, String content);
+        void showTitle(String title);
+        void showContent(String content);
         void showErrorMessage(String msg);
         void showLoadingIndicator(boolean b);
+        void showArticleImage(String image);
     }
 
     interface Presenter extends BasePresenter {
-        void loadArticle(long articleId);
+        void loadArticle(long articleId, String image);
     }
 }

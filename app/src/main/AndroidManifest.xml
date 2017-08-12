@@ -36,8 +36,8 @@
         </activity>
 
         <activity
-            android:name=".articledetail.ArticleDetailActivity"
-            android:label="@string/title_activity_article_detail" >
+            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".articledetail.ArticleDetailActivity">
         </activity>
 
         <activity android:name=".share.ShareReadMaActivity"

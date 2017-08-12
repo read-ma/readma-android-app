@@ -65,7 +65,7 @@ public class ArticlesPresenter implements ArticlesContract.Presenter {
 
     @Override
     public void openArticleDetails(Article article) {
-        mArticlesView.showArticleDetailsScreen(article.id);
+        mArticlesView.showArticleDetailsScreen(article.id, article.image);
     }
 
     @Override

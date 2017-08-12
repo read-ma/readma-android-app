@@ -135,9 +135,10 @@ public class ArticlesActivity extends AppCompatActivity
     }
 
     @Override
-    public void showArticleDetailsScreen(long articleId) {
+    public void showArticleDetailsScreen(long articleId, String image) {
         Intent intent = new Intent(this, ArticleDetailActivity.class);
         intent.putExtra(ArticleDetailActivity.ARTICLE_ID, articleId);
+        intent.putExtra(ArticleDetailActivity.ARTICLE_IMAGE, image);
         startActivity(intent);
     }
 

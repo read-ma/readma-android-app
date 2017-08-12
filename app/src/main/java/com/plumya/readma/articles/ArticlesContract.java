@@ -18,7 +18,7 @@ public interface ArticlesContract {
         void showArticlesEmpty();
         void showLoginScreen();
         void showArticlesScreen();
-        void showArticleDetailsScreen(long articleId);
+        void showArticleDetailsScreen(long articleId, String image);
     }
     interface Presenter extends BasePresenter {
         void loadArticles();
