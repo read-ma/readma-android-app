@@ -57,7 +57,6 @@ public class ArticlesActivity extends AppCompatActivity
         setContentView(R.layout.activity_articles);
         ButterKnife.bind(this);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.articles_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         RecyclerView.ItemDecoration itemDecoration = new

@@ -7,15 +7,12 @@ buildscript {
         classpath 'io.fabric.tools:gradle:1.+'
     }
 }
-apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'android-apt'
+apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 android {
@@ -94,7 +91,7 @@ dependencies {
     testCompile "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
     testCompile "org.hamcrest:hamcrest-all:$rootProject.ext.hamcrestVersion"
 
-    apt "com.jakewharton:butterknife-compiler:$rootProject.ext.butterKnife"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterKnife"
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;
     }

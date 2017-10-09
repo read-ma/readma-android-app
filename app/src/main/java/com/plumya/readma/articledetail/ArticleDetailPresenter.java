@@ -1,5 +1,10 @@
 package com.plumya.readma.articledetail;
 
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 
 import com.google.common.base.Optional;
@@ -17,6 +22,7 @@ import rx.subscriptions.CompositeSubscription;
 public class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
 
     private static final String TAG = ArticleDetailPresenter.class.getSimpleName();
+    public static final String NEW_LINES = "\n\n";
 
     private ArticleDetailContract.View mArticleDetailView;
     private ArticlesRepository mArticlesRepository;
@@ -76,8 +82,18 @@ public class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
         }
         String title = titleBuilder.toString();
         String content = articleDetailWrapper.article.content;
-
+        SpannableString titleAndContent = new SpannableString(title + NEW_LINES + content);
+        titleAndContent.setSpan(
+                new StyleSpan(Typeface.BOLD),
+                0, title.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
+        titleAndContent.setSpan(
+                new RelativeSizeSpan(1f),
+                0, title.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
         mArticleDetailView.showTitle(title);
-        mArticleDetailView.showContent(content);
+        mArticleDetailView.showContent(titleAndContent);
     }
 }
